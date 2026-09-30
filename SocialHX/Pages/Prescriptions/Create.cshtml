@@ -1,0 +1,120 @@
+@page
+@model SocialHX.Pages.Prescriptions.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+        
+<h1>Create</h1>
+        
+<h4>Prescription</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.StudentID" class="control-label"></label>
+                <select asp-for="Prescription.StudentID" class="form-control" asp-items="ViewBag.StudentID"
+                        aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.PrescriberID" class="control-label"></label>
+                <select asp-for="Prescription.PrescriberID" class="form-control" asp-items="ViewBag.PrescriberID"
+                        aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prescription.DateTime" class="control-label"></label>
+                <input asp-for="Prescription.DateTime" class="form-control" />
+                <span asp-validation-for="Prescription.DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event1ID" class="control-label"></label>
+                <select asp-for="Prescription.Event1ID" class="form-control" asp-items="ViewBag.Event1ID"
+                        aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event1Notes" class="control-label"></label>
+                <input asp-for="Prescription.Event1Notes" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event1Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event1OtherPerson" class="control-label"></label>
+                <input asp-for="Prescription.Event1OtherPerson" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event1OtherPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event2ID" class="control-label"></label>
+                <select asp-for="Prescription.Event2ID" class="form-control" asp-items="ViewBag.Event2ID"
+                        aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event2Notes" class="control-label"></label>
+                <input asp-for="Prescription.Event2Notes" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event2Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event2OtherPerson" class="control-label"></label>
+                <input asp-for="Prescription.Event2OtherPerson" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event2OtherPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event3ID" class="control-label"></label>
+                <select asp-for="Prescription.Event3ID" class="form-control" asp-items="ViewBag.Event3ID"
+                        aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event3Notes" class="control-label"></label>
+                <input asp-for="Prescription.Event3Notes" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event3Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event3OtherPerson" class="control-label"></label>
+                <input asp-for="Prescription.Event3OtherPerson" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event3OtherPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event4ID" class="control-label"></label>
+                <select asp-for="Prescription.Event4ID" class="form-control" asp-items="ViewBag.Event4ID"
+                        aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event4Notes" class="control-label"></label>
+                <input asp-for="Prescription.Event4Notes" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event4Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.Event4OtherPerson" class="control-label"></label>
+                <input asp-for="Prescription.Event4OtherPerson" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.Event4OtherPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,55 @@
+@page
+@model SocialHX.Pages.Prescriptions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Prescriber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Prescription)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prescriber.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PrescriptionID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PrescriptionID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PrescriptionID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

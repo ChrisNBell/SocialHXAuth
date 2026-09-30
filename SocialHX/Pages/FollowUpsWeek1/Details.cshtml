@@ -1,0 +1,43 @@
+@page
+@model SocialHX.Pages.FollowUpsWeek1.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FollowUpWeek1</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FollowUpWeek1.Prescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FollowUpWeek1.Prescription.Event1Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FollowUpWeek1.Response)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FollowUpWeek1.Response)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FollowUpWeek1.StudentReport)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FollowUpWeek1.StudentReport)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FollowUpWeek1.StudentAdjustments)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FollowUpWeek1.StudentAdjustments)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.FollowUpWeek1.FollowUpWeek1ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

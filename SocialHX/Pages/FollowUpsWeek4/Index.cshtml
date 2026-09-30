@@ -1,0 +1,78 @@
+@page
+@model SocialHX.Pages.FollowUpsWeek4.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].Prescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].DidMeet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].DidAttend)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].EventsAttended)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].Feelings)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].Barriers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowUpWeek4[0].Refill)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FollowUpWeek4) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prescription.Event1Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DidMeet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DidAttend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventsAttended)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feelings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Barriers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Refill)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.FollowUpWeek4ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.FollowUpWeek4ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.FollowUpWeek4ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

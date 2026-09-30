@@ -1,0 +1,115 @@
+@page
+@model SocialHX.Pages.Prescriptions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Prescription</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Student)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Student.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Prescriber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Prescriber.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.DateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.DateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event1.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event1Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event1Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event1OtherPerson)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event1OtherPerson)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event2.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event2Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event2Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event2OtherPerson)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event2OtherPerson)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event3)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event3.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event3Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event3Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event3OtherPerson)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event3OtherPerson)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event4)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event4.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event4Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event4Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Event4OtherPerson)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Event4OtherPerson)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Prescription.PrescriptionID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

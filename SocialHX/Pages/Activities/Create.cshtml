@@ -1,0 +1,52 @@
+@page
+@model SocialHX.Pages.Activities.CreateModel
+
+        @{
+        ViewData["Title"] = "Create";
+        }
+        
+        <h1>Create</h1>
+        
+    <h4>Activity</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Activity.Name" class="control-label"></label>
+                <input asp-for="Activity.Name" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Activity.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Activity.Description" class="control-label"></label>
+                <input asp-for="Activity.Description" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Activity.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Activity.DateTime" class="control-label"></label>
+                <input asp-for="Activity.DateTime" class="form-control" />
+                <span asp-validation-for="Activity.DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Activity.Location" class="control-label"></label>
+                <input asp-for="Activity.Location" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Activity.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
