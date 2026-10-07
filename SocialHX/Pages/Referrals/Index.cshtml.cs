@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialHX.Data;
 using SocialHX.Models;
 
-namespace SocialHX.Pages.FollowUpsWeek1
+namespace SocialHX.Pages.Referrals
 {
     public class IndexModel : PageModel
     {
@@ -19,12 +19,12 @@ namespace SocialHX.Pages.FollowUpsWeek1
             _context = context;
         }
 
-        public IList<FollowUpWeek1> FollowUpWeek1 { get;set; } = default!;
+        public IList<Referral> Referral { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            FollowUpWeek1 = await _context.FollowUpWeek1
-                .Include(f => f.Prescription).ToListAsync();
+            Referral = await _context.Referral_1
+                .Include(r => r.Student).ToListAsync();
         }
     }
 }

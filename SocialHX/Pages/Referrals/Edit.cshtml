@@ -1,0 +1,77 @@
+@page
+@model SocialHX.Pages.Referrals.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Referral</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Referral.ReferralID" />
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Referral.StudentID" class="control-label"></label>
+                <select asp-for="Referral.StudentID" class="form-control" asp-items="ViewBag.StudentID" aria-required="true"></select>
+                <span asp-validation-for="Referral.StudentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Referral.Submitter" class="control-label"></label>
+                <select asp-for="Referral.Submitter" class="form-control" ></select>
+                <span asp-validation-for="Referral.Submitter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Referral.SubmitterFirstName" class="control-label"></label>
+                <input asp-for="Referral.SubmitterFirstName" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Referral.SubmitterFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Referral.SubmitterLastName" class="control-label"></label>
+                <input asp-for="Referral.SubmitterLastName" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Referral.SubmitterLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Referral.SubmitterEmail" class="control-label"></label>
+                <input asp-for="Referral.SubmitterEmail" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Referral.SubmitterEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+<span class="text-danger">*</span>
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Referral.StudentAware" aria-required="true"/> @Html.DisplayNameFor(model => model.Referral.StudentAware)
+                </label>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Referral.Description" class="control-label"></label>
+                <input asp-for="Referral.Description" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Referral.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Referral.Concerns" class="control-label"></label>
+                <select asp-for="Referral.Concerns" class="form-control" aria-required="true"></select>
+                <span asp-validation-for="Referral.Concerns" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

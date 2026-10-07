@@ -21,12 +21,11 @@ namespace SocialHX.Pages.Prescriptions
 
         public IActionResult OnGet()
         {
-            ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Email");
-            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+        ViewData["AppointmentID"] = new SelectList(_context.Appointment_1, "AppointmentID", "Description");
+        ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
+        ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
+        ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
+        ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
             return Page();
         }
 
@@ -40,8 +39,6 @@ namespace SocialHX.Pages.Prescriptions
             {
                 return Page();
             }
-
-            Prescription.Status = Status.Active;
 
             _context.Prescription.Add(Prescription);
             await _context.SaveChangesAsync();

@@ -28,14 +28,7 @@ namespace SocialHX.Pages.Prescriptions
                 return NotFound();
             }
 
-            var prescription = await _context.Prescription
-            .Include(p => p.Student)
-            .Include(p => p.Prescriber)
-            .Include(p => p.Event1)
-            .Include(p => p.Event2)
-            .Include(p => p.Event3)
-            .Include(p => p.Event4)
-            .FirstOrDefaultAsync(m => m.PrescriptionID == id);
+            var prescription = await _context.Prescription.FirstOrDefaultAsync(m => m.PrescriptionID == id);
 
             if (prescription is not null)
             {

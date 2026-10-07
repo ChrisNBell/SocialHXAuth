@@ -14,13 +14,55 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Prescription[0].Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prescription[0].Prescriber)
+                @Html.DisplayNameFor(model => model.Prescription[0].Appointment)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prescription[0].DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event1Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event1OtherPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event2Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event2OtherPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event3Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event3OtherPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event4Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Event4OtherPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Week1DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Week4DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].PrescriptionNotes)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prescription[0].Status)
@@ -29,27 +71,68 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Prescription)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Student.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Prescriber.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.PrescriptionID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.PrescriptionID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.PrescriptionID">Delete</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model.Prescription) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event1.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event1Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event1OtherPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event2.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event2Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event2OtherPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event3.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event3Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event3OtherPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event4.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event4Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event4OtherPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week1DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week4DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrescriptionNotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PrescriptionID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PrescriptionID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PrescriptionID">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>

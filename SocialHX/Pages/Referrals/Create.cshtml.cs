@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SocialHX.Data;
 using SocialHX.Models;
 
-namespace SocialHX.Pages.FollowUpsWeek4
+namespace SocialHX.Pages.Referrals
 {
     public class CreateModel : PageModel
     {
@@ -21,12 +21,13 @@ namespace SocialHX.Pages.FollowUpsWeek4
 
         public IActionResult OnGet()
         {
-        ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Event1Notes");
+            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["Submitter"] = new SelectList(Enum.GetValues(typeof(Submitter)));
             return Page();
         }
 
         [BindProperty]
-        public FollowUpWeek4 FollowUpWeek4 { get; set; } = default!;
+        public Referral Referral { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +37,7 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return Page();
             }
 
-            _context.Referral.Add(FollowUpWeek4);
+            _context.Referral_1.Add(Referral);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

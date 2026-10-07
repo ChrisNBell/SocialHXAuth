@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialHX.Data;
 using SocialHX.Models;
 
-namespace SocialHX.Pages.Prescriptions
+namespace SocialHX.Pages.Appointments
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SocialHX.Pages.Prescriptions
         }
 
         [BindProperty]
-        public Prescription Prescription { get; set; } = default!;
+        public Appointment Appointment { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,17 +30,14 @@ namespace SocialHX.Pages.Prescriptions
                 return NotFound();
             }
 
-            var prescription =  await _context.Prescription.FirstOrDefaultAsync(m => m.PrescriptionID == id);
-            if (prescription == null)
+            var appointment =  await _context.Appointment_1.FirstOrDefaultAsync(m => m.AppointmentID == id);
+            if (appointment == null)
             {
                 return NotFound();
             }
-            Prescription = prescription;
-           ViewData["AppointmentID"] = new SelectList(_context.Appointment_1, "AppointmentID", "Description");
-           ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
-           ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
-           ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
-           ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
+            Appointment = appointment;
+           ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Department");
+           ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
             return Page();
         }
 
@@ -53,7 +50,7 @@ namespace SocialHX.Pages.Prescriptions
                 return Page();
             }
 
-            _context.Attach(Prescription).State = EntityState.Modified;
+            _context.Attach(Appointment).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +58,7 @@ namespace SocialHX.Pages.Prescriptions
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PrescriptionExists(Prescription.PrescriptionID))
+                if (!AppointmentExists(Appointment.AppointmentID))
                 {
                     return NotFound();
                 }
@@ -74,9 +71,9 @@ namespace SocialHX.Pages.Prescriptions
             return RedirectToPage("./Index");
         }
 
-        private bool PrescriptionExists(int id)
+        private bool AppointmentExists(int id)
         {
-            return _context.Prescription.Any(e => e.PrescriptionID == id);
+            return _context.Appointment_1.Any(e => e.AppointmentID == id);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SocialHX.Pages.FollowUpsWeek4
 
         public async Task OnGetAsync()
         {
-            FollowUpWeek4 = await _context.FollowUpWeek4
+            FollowUpWeek4 = await _context.Referral
                 .Include(f => f.Prescription).ToListAsync();
         }
     }

@@ -12,17 +12,12 @@ public enum Status
 public class Prescription
 {
     public int PrescriptionID { get; set; }
+    [Required]
+    public int AppointmentID { get; set; }
+    [ForeignKey(nameof(AppointmentID))]
+    public Appointment? Appointment { get; set; }
 
     [Required]
-    public int StudentID { get; set; }
-    [ForeignKey(nameof(StudentID))]
-    public Student? Student { get; set; }
-
-    [Required]
-    public int PrescriberID { get; set; }
-    [ForeignKey(nameof(PrescriberID))]
-    public Prescriber? Prescriber { get; set; }
-
     public DateTime DateTime { get; set; }
 
     [Required]
@@ -63,6 +58,10 @@ public class Prescription
     public required string Event4Notes { get; set; }
     [Required]
     public required string Event4OtherPerson { get; set; }
+    public DateTime Week1DateTime { get; set; }
+    public DateTime Week4DateTime { get; set; }
+    [Required]
+    public required string PrescriptionNotes { get; set; }
 
     public Status Status { get; set; }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialHX.Data;
 using SocialHX.Models;
 
-namespace SocialHX.Pages.FollowUpsWeek4
+namespace SocialHX.Pages.Appointments
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace SocialHX.Pages.FollowUpsWeek4
         }
 
         [BindProperty]
-        public FollowUpWeek4 FollowUpWeek4 { get; set; } = default!;
+        public Appointment Appointment { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,11 +29,11 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return NotFound();
             }
 
-            var followupweek4 = await _context.Referral.FirstOrDefaultAsync(m => m.FollowUpWeek4ID == id);
+            var appointment = await _context.Appointment_1.FirstOrDefaultAsync(m => m.AppointmentID == id);
 
-            if (followupweek4 is not null)
+            if (appointment is not null)
             {
-                FollowUpWeek4 = followupweek4;
+                Appointment = appointment;
 
                 return Page();
             }
@@ -48,11 +48,11 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return NotFound();
             }
 
-            var followupweek4 = await _context.Referral.FindAsync(id);
-            if (followupweek4 != null)
+            var appointment = await _context.Appointment_1.FindAsync(id);
+            if (appointment != null)
             {
-                FollowUpWeek4 = followupweek4;
-                _context.Referral.Remove(FollowUpWeek4);
+                Appointment = appointment;
+                _context.Appointment_1.Remove(Appointment);
                 await _context.SaveChangesAsync();
             }
 
