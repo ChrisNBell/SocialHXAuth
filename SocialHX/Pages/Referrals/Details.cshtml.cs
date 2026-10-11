@@ -28,7 +28,7 @@ namespace SocialHX.Pages.Referrals
                 return NotFound();
             }
 
-            var referral = await _context.Referral_1.FirstOrDefaultAsync(m => m.ReferralID == id);
+            var referral = await _context.Referral.FirstOrDefaultAsync(m => m.ReferralID == id);
 
             if (referral is not null)
             {

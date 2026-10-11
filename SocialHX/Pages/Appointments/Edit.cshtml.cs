@@ -30,14 +30,14 @@ namespace SocialHX.Pages.Appointments
                 return NotFound();
             }
 
-            var appointment =  await _context.Appointment_1.FirstOrDefaultAsync(m => m.AppointmentID == id);
+            var appointment = await _context.Appointment.FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
             {
                 return NotFound();
             }
             Appointment = appointment;
-           ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Department");
-           ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Email");
+            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
             return Page();
         }
 
@@ -73,7 +73,7 @@ namespace SocialHX.Pages.Appointments
 
         private bool AppointmentExists(int id)
         {
-            return _context.Appointment_1.Any(e => e.AppointmentID == id);
+            return _context.Appointment.Any(e => e.AppointmentID == id);
         }
     }
 }

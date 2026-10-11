@@ -18,11 +18,9 @@ namespace SocialHX.Data
         public DbSet<SocialHX.Models.Prescriber> Prescriber { get; set; } = default!;
         public DbSet<SocialHX.Models.Prescription> Prescription { get; set; } = default!;
         public DbSet<SocialHX.Models.Activity> Activity { get; set; } = default!;
-        public DbSet<SocialHX.Models.FollowUpWeek4> Referral { get; set; } = default!;
-        public DbSet<SocialHX.Models.FollowUpWeek4> Appointment { get; set; } = default!;
+        public DbSet<SocialHX.Models.Referral> Referral { get; set; } = default!;
+        public DbSet<SocialHX.Models.Appointment> Appointment { get; set; } = default!;
         public DbSet<SocialHX.Models.FollowUpWeek1> FollowUpWeek1 { get; set; } = default!;
         public DbSet<SocialHX.Models.FollowUpWeek4> FollowUpWeek4 { get; set; } = default!;
-        public DbSet<SocialHX.Models.Referral> Referral_1 { get; set; } = default!;
-        public DbSet<SocialHX.Models.Appointment> Appointment_1 { get; set; } = default!;
     }
 }

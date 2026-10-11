@@ -19,11 +19,11 @@ namespace SocialHX.Pages.Appointments
             _context = context;
         }
 
-        public IList<Appointment> Appointment { get;set; } = default!;
+        public IList<Appointment> Appointment { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Appointment = await _context.Appointment_1
+            Appointment = await _context.Appointment
                 .Include(a => a.Prescriber)
                 .Include(a => a.Student).ToListAsync();
         }

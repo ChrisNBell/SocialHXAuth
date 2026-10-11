@@ -19,12 +19,13 @@ namespace SocialHX.Pages.Prescriptions
             _context = context;
         }
 
-        public IList<Prescription> Prescription { get;set; } = default!;
+        public IList<Prescription> Prescription { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             Prescription = await _context.Prescription
                 .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
                 .Include(p => p.Event1)
                 .Include(p => p.Event2)
                 .Include(p => p.Event3)

@@ -30,13 +30,15 @@ namespace SocialHX.Pages.Referrals
                 return NotFound();
             }
 
-            var referral =  await _context.Referral_1.FirstOrDefaultAsync(m => m.ReferralID == id);
+            var referral = await _context.Referral.FirstOrDefaultAsync(m => m.ReferralID == id);
             if (referral == null)
             {
                 return NotFound();
             }
             Referral = referral;
-           ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["SubmitterList"] = new SelectList(Enum.GetValues(typeof(Submitter)));
+            ViewData["ConcernsList"] = new SelectList(Enum.GetValues(typeof(Concerns)));
             return Page();
         }
 
@@ -72,7 +74,7 @@ namespace SocialHX.Pages.Referrals
 
         private bool ReferralExists(int id)
         {
-            return _context.Referral_1.Any(e => e.ReferralID == id);
+            return _context.Referral.Any(e => e.ReferralID == id);
         }
     }
 }

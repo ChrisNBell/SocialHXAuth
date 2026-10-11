@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SocialHX.Data;
 using SocialHX.Models;
 
@@ -21,7 +22,13 @@ namespace SocialHX.Pages.FollowUpsWeek1
 
         public IActionResult OnGet()
         {
-        ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Event1Notes");
+
+            var prescription = _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                    .ToList();
+
+            ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");
             return Page();
         }
 

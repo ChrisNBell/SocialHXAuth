@@ -22,7 +22,8 @@ namespace SocialHX.Pages.Referrals
         public IActionResult OnGet()
         {
             ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
-            ViewData["Submitter"] = new SelectList(Enum.GetValues(typeof(Submitter)));
+            ViewData["SubmitterList"] = new SelectList(Enum.GetValues(typeof(Submitter)));
+            ViewData["ConcernsList"] = new SelectList(Enum.GetValues(typeof(Concerns)));
             return Page();
         }
 
@@ -37,7 +38,7 @@ namespace SocialHX.Pages.Referrals
                 return Page();
             }
 
-            _context.Referral_1.Add(Referral);
+            _context.Referral.Add(Referral);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

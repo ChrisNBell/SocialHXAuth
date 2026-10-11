@@ -19,12 +19,15 @@ namespace SocialHX.Pages.FollowUpsWeek4
             _context = context;
         }
 
-        public IList<FollowUpWeek4> FollowUpWeek4 { get;set; } = default!;
+        public IList<FollowUpWeek4> FollowUpWeek4 { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            FollowUpWeek4 = await _context.Referral
-                .Include(f => f.Prescription).ToListAsync();
+            FollowUpWeek4 = await _context.FollowUpWeek4
+            .Include(f => f.Prescription)
+                .ThenInclude(p => p.Appointment)
+                .ThenInclude(p => p.Student)
+            .ToListAsync();
         }
     }
 }

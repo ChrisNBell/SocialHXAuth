@@ -29,7 +29,11 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return NotFound();
             }
 
-            var followupweek4 = await _context.Referral.FirstOrDefaultAsync(m => m.FollowUpWeek4ID == id);
+            var followupweek4 = await _context.FollowUpWeek4
+                .Include(f => f.Prescription)
+                    .ThenInclude(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                .FirstOrDefaultAsync(m => m.FollowUpWeek4ID == id);
 
             if (followupweek4 is not null)
             {
@@ -48,11 +52,11 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return NotFound();
             }
 
-            var followupweek4 = await _context.Referral.FindAsync(id);
+            var followupweek4 = await _context.FollowUpWeek4.FindAsync(id);
             if (followupweek4 != null)
             {
                 FollowUpWeek4 = followupweek4;
-                _context.Referral.Remove(FollowUpWeek4);
+                _context.FollowUpWeek4.Remove(FollowUpWeek4);
                 await _context.SaveChangesAsync();
             }
 

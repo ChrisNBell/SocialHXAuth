@@ -19,11 +19,11 @@ namespace SocialHX.Pages.Referrals
             _context = context;
         }
 
-        public IList<Referral> Referral { get;set; } = default!;
+        public IList<Referral> Referral { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Referral = await _context.Referral_1
+            Referral = await _context.Referral
                 .Include(r => r.Student).ToListAsync();
         }
     }

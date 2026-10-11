@@ -19,14 +19,33 @@ namespace SocialHX.Pages.Prescriptions
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? appt)
         {
-        ViewData["AppointmentID"] = new SelectList(_context.Appointment_1, "AppointmentID", "Description");
-        ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
-        ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
-        ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
-        ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Description");
+            ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status)));
+
+            if (appt == 0 || appt == null)
+            {
+                ViewData["AppointmentID"] = new SelectList(_context.Appointment, "AppointmentID", "AppointmentID");
+            }
+            else
+            {
+                ViewData["AppointmentID"] = _context.Appointment
+                .Where(a => a.AppointmentID == appt)
+                .Select(a => new SelectListItem
+                {
+                    Value = a.AppointmentID.ToString(),
+                    Text = a.Student.Email + " (Appt " + a.AppointmentID + ")"
+                }).ToList();
+            }
             return Page();
+
+
+
+
         }
 
         [BindProperty]

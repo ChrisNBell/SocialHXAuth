@@ -21,8 +21,8 @@ namespace SocialHX.Pages.Appointments
 
         public IActionResult OnGet()
         {
-        ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Department");
-        ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Email");
+            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
             return Page();
         }
 
@@ -37,7 +37,7 @@ namespace SocialHX.Pages.Appointments
                 return Page();
             }
 
-            _context.Appointment_1.Add(Appointment);
+            _context.Appointment.Add(Appointment);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

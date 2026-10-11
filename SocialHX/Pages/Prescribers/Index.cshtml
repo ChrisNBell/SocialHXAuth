@@ -2,25 +2,42 @@
 @model SocialHX.Pages.Prescribers.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Prescribers";
 }
 
-<h1>Index</h1>
+<h1>Prescribers</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Prescriber[0].Name)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.Prescriber[0].Name)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prescriber[0].Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prescriber[0].Department)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DepartmentSort">
+                    @Html.DisplayNameFor(model => model.Prescriber[0].Department)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prescriber[0].Location)
@@ -29,26 +46,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Prescriber) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.PrescriberID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.PrescriberID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.PrescriberID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Prescriber)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PrescriberID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PrescriberID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PrescriberID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -30,13 +30,17 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return NotFound();
             }
 
-            var followupweek4 =  await _context.Referral.FirstOrDefaultAsync(m => m.FollowUpWeek4ID == id);
+            var followupweek4 = await _context.FollowUpWeek4
+                .Include(f => f.Prescription)
+                    .ThenInclude(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                .FirstOrDefaultAsync(m => m.FollowUpWeek4ID == id);
             if (followupweek4 == null)
             {
                 return NotFound();
             }
             FollowUpWeek4 = followupweek4;
-           ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Event1Notes");
+            ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");
             return Page();
         }
 
@@ -72,7 +76,7 @@ namespace SocialHX.Pages.FollowUpsWeek4
 
         private bool FollowUpWeek4Exists(int id)
         {
-            return _context.Referral.Any(e => e.FollowUpWeek4ID == id);
+            return _context.FollowUpWeek4.Any(e => e.FollowUpWeek4ID == id);
         }
     }
 }

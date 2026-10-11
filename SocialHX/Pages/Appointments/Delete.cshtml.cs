@@ -29,7 +29,7 @@ namespace SocialHX.Pages.Appointments
                 return NotFound();
             }
 
-            var appointment = await _context.Appointment_1.FirstOrDefaultAsync(m => m.AppointmentID == id);
+            var appointment = await _context.Appointment.FirstOrDefaultAsync(m => m.AppointmentID == id);
 
             if (appointment is not null)
             {
@@ -48,11 +48,11 @@ namespace SocialHX.Pages.Appointments
                 return NotFound();
             }
 
-            var appointment = await _context.Appointment_1.FindAsync(id);
+            var appointment = await _context.Appointment.FindAsync(id);
             if (appointment != null)
             {
                 Appointment = appointment;
-                _context.Appointment_1.Remove(Appointment);
+                _context.Appointment.Remove(Appointment);
                 await _context.SaveChangesAsync();
             }
 
