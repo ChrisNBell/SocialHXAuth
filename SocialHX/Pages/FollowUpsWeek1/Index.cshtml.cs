@@ -24,8 +24,9 @@ namespace SocialHX.Pages.FollowUpsWeek1
         public async Task OnGetAsync()
         {
             FollowUpWeek1 = await _context.FollowUpWeek1
-            .Include(f => f.Prescription)
-                .ThenInclude(p => p.Student)
+                .Include(f => f.Prescription)
+                    .ThenInclude(f => f.Appointment)
+                    .ThenInclude(f => f.Student)
             .ToListAsync();
         }
     }

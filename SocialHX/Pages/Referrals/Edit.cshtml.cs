@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SocialHX.Data;
+using SocialHX.Models;
+
+namespace SocialHX.Pages.Referrals
+{
+    public class EditModel : PageModel
+    {
+        private readonly SocialHX.Data.SocialHXContext _context;
+
+        public EditModel(SocialHX.Data.SocialHXContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty]
+        public Referral Referral { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var referral = await _context.Referral.FirstOrDefaultAsync(m => m.ReferralID == id);
+            if (referral == null)
+            {
+                return NotFound();
+            }
+            Referral = referral;
+            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["SubmitterList"] = new SelectList(Enum.GetValues(typeof(Submitter)));
+            ViewData["ConcernsList"] = new SelectList(Enum.GetValues(typeof(Concerns)));
+            return Page();
+        }
+
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more information, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Attach(Referral).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReferralExists(Referral.ReferralID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        private bool ReferralExists(int id)
+        {
+            return _context.Referral.Any(e => e.ReferralID == id);
+        }
+    }
+}

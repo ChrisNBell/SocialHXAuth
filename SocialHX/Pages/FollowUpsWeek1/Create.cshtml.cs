@@ -22,7 +22,13 @@ namespace SocialHX.Pages.FollowUpsWeek1
 
         public IActionResult OnGet()
         {
-            ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "StudentID");
+
+            var prescription = _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                    .ToList();
+
+            ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");
             return Page();
         }
 

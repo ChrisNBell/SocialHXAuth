@@ -27,7 +27,7 @@ builder.Services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 builder.Services.AddDbContext<SocialHXContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RazorPagesMovieContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("SocialHXContext") ?? throw new InvalidOperationException("Connection string 'SocialHXContext' not found.")));
 
 var app = builder.Build();
 

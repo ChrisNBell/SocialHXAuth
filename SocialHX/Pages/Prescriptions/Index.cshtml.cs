@@ -24,8 +24,12 @@ namespace SocialHX.Pages.Prescriptions
         public async Task OnGetAsync()
         {
             Prescription = await _context.Prescription
-                .Include(p => p.Prescriber)
-                .Include(p => p.Student).ToListAsync();
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                .Include(p => p.Event1)
+                .Include(p => p.Event2)
+                .Include(p => p.Event3)
+                .Include(p => p.Event4).ToListAsync();
         }
     }
 }

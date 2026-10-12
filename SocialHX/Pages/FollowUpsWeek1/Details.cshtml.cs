@@ -28,7 +28,11 @@ namespace SocialHX.Pages.FollowUpsWeek1
                 return NotFound();
             }
 
-            var followupweek1 = await _context.FollowUpWeek1.FirstOrDefaultAsync(m => m.FollowUpWeek1ID == id);
+            var followupweek1 = await _context.FollowUpWeek1
+                .Include(f => f.Prescription)
+                    .ThenInclude(f => f.Appointment)
+                    .ThenInclude(f => f.Student)
+                .FirstOrDefaultAsync(m => m.FollowUpWeek1ID == id);
 
             if (followupweek1 is not null)
             {

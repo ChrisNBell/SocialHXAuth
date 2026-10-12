@@ -7,7 +7,8 @@ public class Student
 {
     public int StudentID { get; set; }
     [Required]
-    public required string Name { get; set; }
+    public required string FirstName { get; set; }
+    public required string LastName { get; set; }
     public int Year { get; set; }
     [Required]
     public required string Email { get; set; }

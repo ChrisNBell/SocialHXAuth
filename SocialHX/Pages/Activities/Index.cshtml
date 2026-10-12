@@ -2,10 +2,10 @@
 @model SocialHX.Pages.Activities.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Events";
 }
 
-<h1>Index</h1>
+<h1>Events</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -29,26 +29,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Activity) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ActivityID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ActivityID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ActivityID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Activity)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ActivityID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ActivityID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ActivityID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

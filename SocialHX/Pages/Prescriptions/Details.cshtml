@@ -12,16 +12,10 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Prescription.Student)
+            @Html.DisplayNameFor(model => model.Prescription.Appointment)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Prescription.Student.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Prescription.Prescriber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Prescription.Prescriber.Email)
+            @Html.DisplayFor(model => model.Prescription.Appointment.Student.Email)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Prescription.DateTime)
@@ -100,6 +94,24 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Prescription.Event4OtherPerson)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Week1DateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Week1DateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.Week4DateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.Week4DateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription.PrescriptionNotes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescription.PrescriptionNotes)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Prescription.Status)

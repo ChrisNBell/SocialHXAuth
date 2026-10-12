@@ -2,10 +2,10 @@
 @model SocialHX.Pages.Prescriptions.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Prescriptions";
 }
 
-<h1>Index</h1>
+<h1>Prescriptions</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,13 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Prescription[0].Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prescription[0].Prescriber)
+                @Html.DisplayNameFor(model => model.Prescription[0].Appointment)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prescription[0].DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Week1DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription[0].Week4DateTime)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prescription[0].Status)
@@ -33,13 +36,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Student.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Prescriber.Email)
+                    @Html.DisplayFor(modelItem => item.Appointment.Student.Email)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Week1DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Week4DateTime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)

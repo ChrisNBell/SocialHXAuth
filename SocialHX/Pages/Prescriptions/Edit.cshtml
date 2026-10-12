@@ -16,21 +16,15 @@
             <input type="hidden" asp-for="Prescription.PrescriptionID" />
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Prescription.StudentID" class="control-label"></label>
-                <select asp-for="Prescription.StudentID" class="form-control" asp-items="ViewBag.StudentID"
+                <label asp-for="Prescription.AppointmentID" class="control-label"></label>
+                <select asp-for="Prescription.AppointmentID" class="form-control" asp-items="ViewBag.AppointmentID"
                         aria-required="true"></select>
-                <span asp-validation-for="Prescription.StudentID" class="text-danger"></span>
+                <span asp-validation-for="Prescription.AppointmentID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Prescription.PrescriberID" class="control-label"></label>
-                <select asp-for="Prescription.PrescriberID" class="form-control" asp-items="ViewBag.PrescriberID"
-                        aria-required="true"></select>
-                <span asp-validation-for="Prescription.PrescriberID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Prescription.DateTime" class="control-label"></label>
-                <input asp-for="Prescription.DateTime" class="form-control" />
+                <input asp-for="Prescription.DateTime" class="form-control" aria-required="true" />
                 <span asp-validation-for="Prescription.DateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -108,6 +102,22 @@
                 <label asp-for="Prescription.Event4OtherPerson" class="control-label"></label>
                 <input asp-for="Prescription.Event4OtherPerson" class="form-control" aria-required="true" />
                 <span asp-validation-for="Prescription.Event4OtherPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prescription.Week1DateTime" class="control-label"></label>
+                <input asp-for="Prescription.Week1DateTime" class="form-control" />
+                <span asp-validation-for="Prescription.Week1DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prescription.Week4DateTime" class="control-label"></label>
+                <input asp-for="Prescription.Week4DateTime" class="form-control" />
+                <span asp-validation-for="Prescription.Week4DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Prescription.PrescriptionNotes" class="control-label"></label>
+                <input asp-for="Prescription.PrescriptionNotes" class="form-control" aria-required="true" />
+                <span asp-validation-for="Prescription.PrescriptionNotes" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Prescription.Status" class="control-label"></label>

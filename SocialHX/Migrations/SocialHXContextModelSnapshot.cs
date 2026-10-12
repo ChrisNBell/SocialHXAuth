@@ -43,6 +43,31 @@ namespace SocialHX.Migrations
                     b.ToTable("Activity");
                 });
 
+            modelBuilder.Entity("SocialHX.Models.Appointment", b =>
+                {
+                    b.Property<int>("AppointmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PrescriberID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AppointmentID");
+
+                    b.HasIndex("PrescriberID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("Appointment");
+                });
+
             modelBuilder.Entity("SocialHX.Models.FollowUpWeek1", b =>
                 {
                     b.Property<int>("FollowUpWeek1ID")
@@ -142,6 +167,9 @@ namespace SocialHX.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AppointmentID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("TEXT");
 
@@ -189,16 +217,22 @@ namespace SocialHX.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PrescriberID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PrescriptionNotes")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("StudentID")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("Week1DateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Week4DateTime")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("PrescriptionID");
+
+                    b.HasIndex("AppointmentID");
 
                     b.HasIndex("Event1ID");
 
@@ -208,11 +242,48 @@ namespace SocialHX.Migrations
 
                     b.HasIndex("Event4ID");
 
-                    b.HasIndex("PrescriberID");
+                    b.ToTable("Prescription");
+                });
+
+            modelBuilder.Entity("SocialHX.Models.Referral", b =>
+                {
+                    b.Property<int>("ReferralID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Concerns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("StudentAware")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Submitter")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SubmitterEmail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubmitterFirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubmitterLastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ReferralID");
 
                     b.HasIndex("StudentID");
 
-                    b.ToTable("Prescription");
+                    b.ToTable("Referral");
                 });
 
             modelBuilder.Entity("SocialHX.Models.Student", b =>
@@ -225,7 +296,11 @@ namespace SocialHX.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -235,6 +310,25 @@ namespace SocialHX.Migrations
                     b.HasKey("StudentID");
 
                     b.ToTable("Student");
+                });
+
+            modelBuilder.Entity("SocialHX.Models.Appointment", b =>
+                {
+                    b.HasOne("SocialHX.Models.Prescriber", "Prescriber")
+                        .WithMany()
+                        .HasForeignKey("PrescriberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SocialHX.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prescriber");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SocialHX.Models.FollowUpWeek1", b =>
@@ -261,6 +355,12 @@ namespace SocialHX.Migrations
 
             modelBuilder.Entity("SocialHX.Models.Prescription", b =>
                 {
+                    b.HasOne("SocialHX.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SocialHX.Models.Activity", "Event1")
                         .WithMany()
                         .HasForeignKey("Event1ID")
@@ -285,17 +385,7 @@ namespace SocialHX.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SocialHX.Models.Prescriber", "Prescriber")
-                        .WithMany()
-                        .HasForeignKey("PrescriberID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SocialHX.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Appointment");
 
                     b.Navigation("Event1");
 
@@ -304,8 +394,15 @@ namespace SocialHX.Migrations
                     b.Navigation("Event3");
 
                     b.Navigation("Event4");
+                });
 
-                    b.Navigation("Prescriber");
+            modelBuilder.Entity("SocialHX.Models.Referral", b =>
+                {
+                    b.HasOne("SocialHX.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Student");
                 });

@@ -1,0 +1,67 @@
+@page
+@model SocialHX.Pages.Referrals.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Referral</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.Student)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.Student.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.Submitter)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.Submitter)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.SubmitterFirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.SubmitterFirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.SubmitterLastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.SubmitterLastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.SubmitterEmail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.SubmitterEmail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.StudentAware)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.StudentAware)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Referral.Concerns)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Referral.Concerns)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Referral.ReferralID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

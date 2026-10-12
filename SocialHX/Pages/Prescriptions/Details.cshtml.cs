@@ -29,13 +29,13 @@ namespace SocialHX.Pages.Prescriptions
             }
 
             var prescription = await _context.Prescription
-            .Include(p => p.Student)
-            .Include(p => p.Prescriber)
-            .Include(p => p.Event1)
-            .Include(p => p.Event2)
-            .Include(p => p.Event3)
-            .Include(p => p.Event4)
-            .FirstOrDefaultAsync(m => m.PrescriptionID == id);
+                .Include(p => p.Appointment)
+                    .ThenInclude(a => a.Student)
+                .Include(p => p.Event1)
+                .Include(p => p.Event2)
+                .Include(p => p.Event3)
+                .Include(p => p.Event4)
+                .FirstOrDefaultAsync(m => m.PrescriptionID == id);
 
             if (prescription is not null)
             {
