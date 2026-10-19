@@ -23,14 +23,14 @@ namespace SocialHX.Pages.Prescribers
         [BindProperty]
         public Prescriber Prescriber { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var prescriber =  await _context.Prescriber.FirstOrDefaultAsync(m => m.PrescriberID == id);
+            var prescriber =  await _context.Prescriber.FirstOrDefaultAsync(m => m.Email == id);
             if (prescriber == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace SocialHX.Pages.Prescribers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PrescriberExists(Prescriber.PrescriberID))
+                if (!PrescriberExists(Prescriber.Email))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace SocialHX.Pages.Prescribers
             return RedirectToPage("./Index");
         }
 
-        private bool PrescriberExists(int id)
+        private bool PrescriberExists(string id)
         {
-            return _context.Prescriber.Any(e => e.PrescriberID == id);
+            return _context.Prescriber.Any(e => e.Email == id);
         }
     }
 }

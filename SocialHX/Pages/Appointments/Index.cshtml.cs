@@ -19,7 +19,7 @@ namespace SocialHX.Pages.Appointments
             _context = context;
         }
 
-        public IList<Appointment> Appointment { get; set; } = default!;
+        public IList<Appointment> Appointment { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

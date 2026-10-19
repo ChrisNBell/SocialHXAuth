@@ -5,15 +5,13 @@ namespace SocialHX.Models;
 
 public class Prescriber
 {
-    public int PrescriberID { get; set; }
-    [Required]
-    public required string Name { get; set; }
+    [Key]
     [Required]
     public required string Email { get; set; }
+    [Required]
+    public required string Name { get; set; }
     [Required]
     public required string Department { get; set; }
     [Required]
     public required string Location { get; set; }
-
-
 }

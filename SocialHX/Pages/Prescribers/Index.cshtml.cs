@@ -19,47 +19,11 @@ namespace SocialHX.Pages.Prescribers
             _context = context;
         }
 
-        public string NameSort { get; set; }
-        public string DepartmentSort { get; set; }
-        public string CurrentFilter { get; set; }
-        public string CurrentSort { get; set; }
+        public IList<Prescriber> Prescriber { get;set; } = default!;
 
-        public IList<Prescriber> Prescriber { get; set; } = default!;
-
-        public async Task OnGetAsync(string sortOrder, string searchString)
+        public async Task OnGetAsync()
         {
-            // using System;
-            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            DepartmentSort = sortOrder == "Department" ? "department_desc" : "Department";
-
-            CurrentFilter = searchString;
-
-            IQueryable<Prescriber> prescriberIQ = from s in _context.Prescriber
-                                                  select s;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                prescriberIQ = prescriberIQ.Where(s => s.Name.Contains(searchString)
-                                       || s.Department.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    prescriberIQ = prescriberIQ.OrderByDescending(s => s.Name);
-                    break;
-                case "Department":
-                    prescriberIQ = prescriberIQ.OrderBy(s => s.Department);
-                    break;
-                case "department_desc":
-                    prescriberIQ = prescriberIQ.OrderByDescending(s => s.Department);
-                    break;
-                default:
-                    prescriberIQ = prescriberIQ.OrderBy(s => s.Name);
-                    break;
-            }
-
-            Prescriber = await prescriberIQ.AsNoTracking().ToListAsync();
+            Prescriber = await _context.Prescriber.ToListAsync();
         }
     }
 }
