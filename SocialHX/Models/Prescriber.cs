@@ -7,6 +7,7 @@ public class Prescriber
 {
     public int PrescriberID { get; set; }
     [Required]
+    //public string EntraObjectId { get; set; } 
     public required string Name { get; set; }
     [Required]
     public required string Email { get; set; }

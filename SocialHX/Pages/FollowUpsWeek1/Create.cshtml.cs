@@ -23,9 +23,16 @@ namespace SocialHX.Pages.FollowUpsWeek1
         public IActionResult OnGet()
         {
 
-            var prescription = _context.Prescription
+            var prescription = User.IsInRole("Admin") ?
+             _context.Prescription
                 .Include(p => p.Appointment)
                     .ThenInclude(p => p.Student)
+                    .ToList()
+            :
+            _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                    .Where(p => p.Appointment.Prescriber.Email == User.Identity.Name)
                     .ToList();
 
             ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");

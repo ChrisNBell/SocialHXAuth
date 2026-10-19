@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SocialHX.Data;
 using SocialHX.Models;
 
@@ -19,21 +20,47 @@ namespace SocialHX.Pages.Appointments
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Email");
-            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            var prescriber = await FindCurrentPrescriberAsync();
+            if (User.IsInRole("Admin"))
+            {
+                if (prescriber == null)
+                {
+                    ModelState.AddModelError(string.Empty, "No prescriber account matches your sign-in email.");
+                }
+                else
+                {
+                    Appointment.PrescriberID = prescriber.PrescriberID;
+                }
+            }
+
+            PopulateSelectLists(prescriber);
             return Page();
         }
 
         [BindProperty]
-        public Appointment Appointment { get; set; } = default!;
+        public Appointment Appointment { get; set; } = new() { Description = string.Empty };
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            var prescriber = await FindCurrentPrescriberAsync();
+            if (User.IsInRole("Admin"))
+            {
+                if (prescriber == null)
+                {
+                    ModelState.AddModelError(string.Empty, "No prescriber account matches your sign-in email.");
+                }
+                else
+                {
+                    Appointment.PrescriberID = prescriber.PrescriberID;
+                }
+            }
+
             if (!ModelState.IsValid)
             {
+                PopulateSelectLists(prescriber);
                 return Page();
             }
 
@@ -41,6 +68,26 @@ namespace SocialHX.Pages.Appointments
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        private Task<Prescriber?> FindCurrentPrescriberAsync()
+        {
+            var email = User.Identity?.Name;
+            Console.Write(email.Trim().ToLower());
+            return string.IsNullOrWhiteSpace(email)
+                ? Task.FromResult<Prescriber?>(null)
+                : _context.Prescriber.FirstOrDefaultAsync(
+                    p => p.Email.Trim().ToLower() == email.Trim().ToLower());
+        }
+
+        private void PopulateSelectLists(Prescriber? currentPrescriber)
+        {
+            var prescribers = !User.IsInRole("Admin")
+                ? _context.Prescriber.ToList()
+                : currentPrescriber == null ? new List<Prescriber>() : new List<Prescriber> { currentPrescriber };
+
+            ViewData["PrescriberID"] = new SelectList(prescribers, "PrescriberID", "Email", Appointment.PrescriberID);
+            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
         }
     }
 }

@@ -23,13 +23,24 @@ namespace SocialHX.Pages.Prescriptions
 
         public async Task OnGetAsync()
         {
-            Prescription = await _context.Prescription
+            Prescription = User.IsInRole("Admin")
+            ? await _context.Prescription
                 .Include(p => p.Appointment)
                     .ThenInclude(p => p.Student)
                 .Include(p => p.Event1)
                 .Include(p => p.Event2)
                 .Include(p => p.Event3)
-                .Include(p => p.Event4).ToListAsync();
+                .Include(p => p.Event4).ToListAsync()
+                :
+                await _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                .Include(p => p.Event1)
+                .Include(p => p.Event2)
+                .Include(p => p.Event3)
+                .Include(p => p.Event4)
+                .Where(p => p.Appointment.Prescriber.Email == User.Identity.Name)
+                .ToListAsync();
         }
     }
 }

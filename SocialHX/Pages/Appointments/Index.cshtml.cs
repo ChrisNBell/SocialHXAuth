@@ -23,9 +23,16 @@ namespace SocialHX.Pages.Appointments
 
         public async Task OnGetAsync()
         {
-            Appointment = await _context.Appointment
+            Appointment = User.IsInRole("Admin") ?
+            await _context.Appointment
                 .Include(a => a.Prescriber)
-                .Include(a => a.Student).ToListAsync();
+                .Include(a => a.Student).ToListAsync()
+            :
+            await _context.Appointment
+                .Include(a => a.Prescriber)
+                .Include(a => a.Student)
+                .Where(a => a.Prescriber.Email == User.Identity.Name)
+                .ToListAsync();
         }
     }
 }
