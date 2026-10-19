@@ -30,14 +30,14 @@ namespace SocialHX.Pages.Appointments
                 return NotFound();
             }
 
-            var appointment = await _context.Appointment.FirstOrDefaultAsync(m => m.AppointmentID == id);
+            var appointment =  await _context.Appointment.FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
             {
                 return NotFound();
             }
             Appointment = appointment;
-            ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "PrescriberID", "Email");
-            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+           ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "Email", "Email");
+           ViewData["StudentID"] = new SelectList(_context.Student, "Email", "Email");
             return Page();
         }
 

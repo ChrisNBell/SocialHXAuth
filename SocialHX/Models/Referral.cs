@@ -17,7 +17,7 @@ public class Referral
 {
     public int ReferralID { get; set; }
     [Required]
-    public int StudentID { get; set; }
+    public required string StudentID { get; set; }
     [ForeignKey(nameof(StudentID))]
     public Student? Student { get; set; }
     public required Submitter Submitter { get; set; }

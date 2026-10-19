@@ -19,7 +19,7 @@ namespace SocialHX.Pages.Referrals
             _context = context;
         }
 
-        public IList<Referral> Referral { get; set; } = default!;
+        public IList<Referral> Referral { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

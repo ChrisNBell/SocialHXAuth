@@ -53,11 +53,13 @@ namespace SocialHX.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PrescriberID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PrescriberID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("StudentID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("StudentID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AppointmentID");
 
@@ -136,15 +138,10 @@ namespace SocialHX.Migrations
 
             modelBuilder.Entity("SocialHX.Models.Prescriber", b =>
                 {
-                    b.Property<int>("PrescriberID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Department")
-                        .IsRequired()
+                    b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Department")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -156,7 +153,7 @@ namespace SocialHX.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("PrescriberID");
+                    b.HasKey("Email");
 
                     b.ToTable("Prescriber");
                 });
@@ -261,8 +258,9 @@ namespace SocialHX.Migrations
                     b.Property<bool>("StudentAware")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("StudentID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("StudentID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Submitter")
                         .HasColumnType("INTEGER");
@@ -288,12 +286,7 @@ namespace SocialHX.Migrations
 
             modelBuilder.Entity("SocialHX.Models.Student", b =>
                 {
-                    b.Property<int>("StudentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
@@ -307,7 +300,7 @@ namespace SocialHX.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("StudentID");
+                    b.HasKey("Email");
 
                     b.ToTable("Student");
                 });

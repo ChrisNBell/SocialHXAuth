@@ -21,14 +21,14 @@ namespace SocialHX.Pages.Prescribers
 
         public Prescriber Prescriber { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var prescriber = await _context.Prescriber.FirstOrDefaultAsync(m => m.PrescriberID == id);
+            var prescriber = await _context.Prescriber.FirstOrDefaultAsync(m => m.Email == id);
 
             if (prescriber is not null)
             {

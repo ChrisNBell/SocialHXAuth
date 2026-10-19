@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SocialHX.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingReferralsAndAppointments : Migration
+    public partial class FixingForeignKeysFinal : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,68 +31,64 @@ namespace SocialHX.Migrations
                 name: "Prescriber",
                 columns: table => new
                 {
-                    PrescriberID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Department = table.Column<string>(type: "TEXT", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prescriber", x => x.PrescriberID);
+                    table.PrimaryKey("PK_Prescriber", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
-                    StudentID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false)
+                    Year = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.StudentID);
+                    table.PrimaryKey("PK_Student", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Appointment_1",
+                name: "Appointment",
                 columns: table => new
                 {
                     AppointmentID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StudentID = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrescriberID = table.Column<int>(type: "INTEGER", nullable: false),
+                    StudentID = table.Column<string>(type: "TEXT", nullable: false),
+                    PrescriberID = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Appointment_1", x => x.AppointmentID);
+                    table.PrimaryKey("PK_Appointment", x => x.AppointmentID);
                     table.ForeignKey(
-                        name: "FK_Appointment_1_Prescriber_PrescriberID",
+                        name: "FK_Appointment_Prescriber_PrescriberID",
                         column: x => x.PrescriberID,
                         principalTable: "Prescriber",
-                        principalColumn: "PrescriberID",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Appointment_1_Student_StudentID",
+                        name: "FK_Appointment_Student_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Student",
-                        principalColumn: "StudentID",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Referral_1",
+                name: "Referral",
                 columns: table => new
                 {
                     ReferralID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StudentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    StudentID = table.Column<string>(type: "TEXT", nullable: false),
                     Submitter = table.Column<int>(type: "INTEGER", nullable: false),
                     SubmitterFirstName = table.Column<string>(type: "TEXT", nullable: false),
                     SubmitterLastName = table.Column<string>(type: "TEXT", nullable: false),
@@ -103,12 +99,12 @@ namespace SocialHX.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Referral_1", x => x.ReferralID);
+                    table.PrimaryKey("PK_Referral", x => x.ReferralID);
                     table.ForeignKey(
-                        name: "FK_Referral_1_Student_StudentID",
+                        name: "FK_Referral_Student_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Student",
-                        principalColumn: "StudentID",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -165,9 +161,9 @@ namespace SocialHX.Migrations
                         principalColumn: "ActivityID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Prescription_Appointment_1_AppointmentID",
+                        name: "FK_Prescription_Appointment_AppointmentID",
                         column: x => x.AppointmentID,
-                        principalTable: "Appointment_1",
+                        principalTable: "Appointment",
                         principalColumn: "AppointmentID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -221,13 +217,13 @@ namespace SocialHX.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointment_1_PrescriberID",
-                table: "Appointment_1",
+                name: "IX_Appointment_PrescriberID",
+                table: "Appointment",
                 column: "PrescriberID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointment_1_StudentID",
-                table: "Appointment_1",
+                name: "IX_Appointment_StudentID",
+                table: "Appointment",
                 column: "StudentID");
 
             migrationBuilder.CreateIndex(
@@ -266,8 +262,8 @@ namespace SocialHX.Migrations
                 column: "Event4ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Referral_1_StudentID",
-                table: "Referral_1",
+                name: "IX_Referral_StudentID",
+                table: "Referral",
                 column: "StudentID");
         }
 
@@ -281,7 +277,7 @@ namespace SocialHX.Migrations
                 name: "FollowUpWeek4");
 
             migrationBuilder.DropTable(
-                name: "Referral_1");
+                name: "Referral");
 
             migrationBuilder.DropTable(
                 name: "Prescription");
@@ -290,7 +286,7 @@ namespace SocialHX.Migrations
                 name: "Activity");
 
             migrationBuilder.DropTable(
-                name: "Appointment_1");
+                name: "Appointment");
 
             migrationBuilder.DropTable(
                 name: "Prescriber");

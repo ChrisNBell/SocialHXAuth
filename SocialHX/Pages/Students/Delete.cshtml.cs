@@ -22,14 +22,14 @@ namespace SocialHX.Pages.Students
         [BindProperty]
         public Student Student { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
+            var student = await _context.Student.FirstOrDefaultAsync(m => m.Email == id);
 
             if (student is not null)
             {
@@ -41,7 +41,7 @@ namespace SocialHX.Pages.Students
             return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(string id)
         {
             if (id == null)
             {

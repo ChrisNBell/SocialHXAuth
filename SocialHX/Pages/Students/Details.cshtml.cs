@@ -21,14 +21,14 @@ namespace SocialHX.Pages.Students
 
         public Student Student { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
+            var student = await _context.Student.FirstOrDefaultAsync(m => m.Email == id);
 
             if (student is not null)
             {
