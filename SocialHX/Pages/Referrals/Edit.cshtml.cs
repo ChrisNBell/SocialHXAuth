@@ -30,15 +30,13 @@ namespace SocialHX.Pages.Referrals
                 return NotFound();
             }
 
-            var referral = await _context.Referral.FirstOrDefaultAsync(m => m.ReferralID == id);
+            var referral =  await _context.Referral.FirstOrDefaultAsync(m => m.ReferralID == id);
             if (referral == null)
             {
                 return NotFound();
             }
             Referral = referral;
-            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
-            ViewData["SubmitterList"] = new SelectList(Enum.GetValues(typeof(Submitter)));
-            ViewData["ConcernsList"] = new SelectList(Enum.GetValues(typeof(Concerns)));
+           ViewData["StudentID"] = new SelectList(_context.Student, "Email", "Email");
             return Page();
         }
 

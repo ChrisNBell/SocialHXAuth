@@ -23,14 +23,14 @@ namespace SocialHX.Pages.Students
         [BindProperty]
         public Student Student { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student =  await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
+            var student =  await _context.Student.FirstOrDefaultAsync(m => m.Email == id);
             if (student == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace SocialHX.Pages.Students
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(Student.StudentID))
+                if (!StudentExists(Student.Email))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace SocialHX.Pages.Students
             return RedirectToPage("./Index");
         }
 
-        private bool StudentExists(int id)
+        private bool StudentExists(string id)
         {
-            return _context.Student.Any(e => e.StudentID == id);
+            return _context.Student.Any(e => e.Email == id);
         }
     }
 }

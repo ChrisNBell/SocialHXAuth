@@ -38,7 +38,18 @@ namespace SocialHX.Pages.Students
                 return Page();
             }
 
-            _context.Student.Add(Student);
+            Console.WriteLine(_context.Student.Where(s => s.Email == Student.Email).Count());
+
+            if (_context.Student.Where(s => s.Email == Student.Email).Count() == 1)
+            {
+                Console.WriteLine("Updating student");
+                _context.Student.Update(Student);
+            }
+            else
+            {
+                _context.Student.Add(Student);
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

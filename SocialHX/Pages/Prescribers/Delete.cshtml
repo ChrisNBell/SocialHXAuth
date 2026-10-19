@@ -19,12 +19,6 @@
             @Html.DisplayFor(model => model.Prescriber.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Prescriber.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Prescriber.Email)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Prescriber.Department)
         </dt>
         <dd class="col-sm-10">
@@ -39,7 +33,7 @@
     </dl>
     
     <form method="post">
-        <input type="hidden" asp-for="Prescriber.PrescriberID" />
+        <input type="hidden" asp-for="Prescriber.Email" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Back to List</a>
     </form>
