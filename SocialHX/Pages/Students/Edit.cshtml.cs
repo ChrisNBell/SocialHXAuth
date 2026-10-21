@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,8 +11,7 @@ using SocialHX.Data;
 using SocialHX.Models;
 
 namespace SocialHX.Pages.Students
-{
-    public class EditModel : PageModel
+{    public class EditModel : PageModel
     {
         private readonly SocialHX.Data.SocialHXContext _context;
 

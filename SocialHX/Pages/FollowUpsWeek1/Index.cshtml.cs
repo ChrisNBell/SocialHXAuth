@@ -23,10 +23,19 @@ namespace SocialHX.Pages.FollowUpsWeek1
 
         public async Task OnGetAsync()
         {
-            FollowUpWeek1 = await _context.FollowUpWeek1
+            FollowUpWeek1 = User.IsInRole("Admin") ?
+            
+             await _context.FollowUpWeek1
                 .Include(f => f.Prescription)
                     .ThenInclude(f => f.Appointment)
                     .ThenInclude(f => f.Student)
+            .ToListAsync()
+            :
+            await _context.FollowUpWeek1
+                .Include(f => f.Prescription)
+                    .ThenInclude(f => f.Appointment)
+                    .ThenInclude(f => f.Student)
+                    .Where(f => f.Prescription.Appointment.Prescriber.Email == User.Identity.Name)
             .ToListAsync();
         }
     }
