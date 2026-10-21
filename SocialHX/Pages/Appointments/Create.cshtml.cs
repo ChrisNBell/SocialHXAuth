@@ -23,7 +23,7 @@ namespace SocialHX.Pages.Appointments
         public async Task<IActionResult> OnGetAsync()
         {
             var prescriber = await FindCurrentPrescriberAsync();
-            if (User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin"))
             {
                 if (prescriber == null)
                 {
@@ -31,7 +31,13 @@ namespace SocialHX.Pages.Appointments
                 }
                 else
                 {
-                    Appointment.PrescriberID = prescriber.PrescriberID;
+                    ViewData["PrescriberID"] = _context.Prescriber
+                       .Where(a => a.Email == prescriber.Email)
+                       .Select(a => new SelectListItem
+                       {
+                           Value = a.Email,
+                           Text = a.Email
+                       }).ToList();
                 }
             }
 
@@ -40,7 +46,7 @@ namespace SocialHX.Pages.Appointments
         }
 
         [BindProperty]
-        public Appointment Appointment { get; set; } = new() { Description = string.Empty };
+        public Appointment Appointment { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -82,12 +88,12 @@ namespace SocialHX.Pages.Appointments
 
         private void PopulateSelectLists(Prescriber? currentPrescriber)
         {
-            var prescribers = !User.IsInRole("Admin")
+            var prescribers = User.IsInRole("Admin")
                 ? _context.Prescriber.ToList()
                 : currentPrescriber == null ? new List<Prescriber>() : new List<Prescriber> { currentPrescriber };
 
-            ViewData["PrescriberID"] = new SelectList(prescribers, "PrescriberID", "Email", Appointment.PrescriberID);
-            ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "Email");
+            ViewData["PrescriberID"] = new SelectList(prescribers, "Email", "Email");
+            ViewData["StudentID"] = new SelectList(_context.Student, "Email", "Email");
         }
     }
 }
