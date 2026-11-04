@@ -33,6 +33,9 @@ namespace SocialHX.Pages.Students
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
+            Student.Email = Student.Email.Trim();
+
             if (!ModelState.IsValid)
             {
                 return Page();

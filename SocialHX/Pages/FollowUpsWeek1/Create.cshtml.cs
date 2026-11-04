@@ -64,7 +64,7 @@ namespace SocialHX.Pages.FollowUpsWeek1
             _context.FollowUpWeek1.Add(FollowUpWeek1);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Prescriptions/Details", new { id = FollowUpWeek1.PrescriptionID });
         }
     }
 }

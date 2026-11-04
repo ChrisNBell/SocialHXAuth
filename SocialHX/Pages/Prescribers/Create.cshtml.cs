@@ -32,6 +32,8 @@ namespace SocialHX.Pages.Prescribers
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            Prescriber.Email = Prescriber.Email.Trim();
+
             if (!ModelState.IsValid)
             {
                 return Page();

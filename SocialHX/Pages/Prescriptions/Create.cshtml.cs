@@ -40,13 +40,15 @@ namespace SocialHX.Pages.Prescriptions
             }
             else
             {
-                ViewData["AppointmentID"] = appointments
+                ViewData["AID"] = appt;
+                /* ViewData["AppointmentID"] = appointments
                 .Where(a => a.AppointmentID == appt)
                 .Select(a => new SelectListItem
                 {
                     Value = a.AppointmentID.ToString(),
                     Text = a.Student == null ? "Unknown student" : a.Student.Email
-                }).ToList();
+                }).ToList(); */
+
             }
             return Page();
 
@@ -59,8 +61,12 @@ namespace SocialHX.Pages.Prescriptions
         public Prescription Prescription { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? appt)
         {
+            Prescription.AppointmentID = (int)appt;
+            ModelState.Clear();
+            TryValidateModel(Prescription);
+
             if (!ModelState.IsValid)
             {
                 return Page();

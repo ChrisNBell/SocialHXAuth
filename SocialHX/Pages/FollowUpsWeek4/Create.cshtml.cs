@@ -75,7 +75,7 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return RedirectToPage("/Prescriptions/Create", new { appt = id.AppointmentID });
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Prescriptions/Details", new { id = FollowUpWeek4.PrescriptionID });
         }
     }
 }
