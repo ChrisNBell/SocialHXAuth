@@ -22,55 +22,8 @@ namespace SocialHX.Pages.Appointments
 
         public async Task<IActionResult> OnGetAsync(string? id)
         {
-            var prescriber = await FindCurrentPrescriberAsync();
-
-            string pEmail;
-
-            if (prescriber == null)
-            {
-                pEmail = "";
-            }
-            else
-            {
-                pEmail = prescriber.Email;
-            }
-
-            Appointment = new Appointment
-            {
-                StudentID = id!,
-                PrescriberID = pEmail,
-                Description = ""
-            };
-
-
-            if (!User.IsInRole("Admin"))
-            {
-                if (prescriber == null)
-                {
-                    ModelState.AddModelError(string.Empty, "No prescriber account matches your sign-in email.");
-                }
-                else
-                {
-
-                    // ViewData["PrescriberID"] = _context.Prescriber
-                    // .Where(a => a.Email == prescriber.Email)
-                    // .Select(a => new SelectListItem
-                    // {
-                    // Value = a.Email,
-                    // Text = a.Email
-                    // }).ToList();
-
-                    ViewData["PrescriberID"] = new SelectList(
-                    _context.Prescriber.Where(a => a.Email == prescriber.Email),
-                    "Email", "Email", prescriber.Email);
-
-
-                    ViewData["StudentID"] = new SelectList(
-                    _context.Student.Where(s => s.Email == id), "Email", "Email", id);
-                }
-            }
-
-            PopulateSelectLists(prescriber);
+            ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "Email", "Email");
+            ViewData["PID"] = id;
             return Page();
         }
 
@@ -78,24 +31,14 @@ namespace SocialHX.Pages.Appointments
         public Appointment Appointment { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string? StudentID)
         {
-            var prescriber = await FindCurrentPrescriberAsync();
-            if (User.IsInRole("Admin"))
-            {
-                if (prescriber == null)
-                {
-                    ModelState.AddModelError(string.Empty, "No prescriber account matches your sign-in email.");
-                }
-                else
-                {
-                    Appointment.PrescriberID = prescriber.Email;
-                }
-            }
-
+            Console.WriteLine(StudentID);
+            Appointment.StudentID = (string)StudentID;
+            ModelState.Clear();
+            TryValidateModel(Appointment);
             if (!ModelState.IsValid)
             {
-                PopulateSelectLists(prescriber);
                 return Page();
             }
 
