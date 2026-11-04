@@ -12,7 +12,7 @@ using SocialHX.Models;
 
 namespace SocialHX.Pages.Prescribers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly SocialHX.Data.SocialHXContext _context;
@@ -32,7 +32,7 @@ namespace SocialHX.Pages.Prescribers
                 return NotFound();
             }
 
-            var prescriber =  await _context.Prescriber.FirstOrDefaultAsync(m => m.Email == id);
+            var prescriber = await _context.Prescriber.FirstOrDefaultAsync(m => m.Email == id);
             if (prescriber == null)
             {
                 return NotFound();

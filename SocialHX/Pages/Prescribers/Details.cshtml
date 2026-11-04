@@ -2,15 +2,21 @@
 @model SocialHX.Pages.Prescribers.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Prescribers: Details";
 }
 
-<h1>Details</h1>
+<h1>Prescribers: Details</h1>
 
 <div>
     <h4>Prescriber</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescriber.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prescriber.Email)
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Prescriber.Name)
         </dt>

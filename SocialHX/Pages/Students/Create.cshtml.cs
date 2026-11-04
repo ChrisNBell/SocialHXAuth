@@ -12,7 +12,7 @@ using SocialHX.Models;
 
 namespace SocialHX.Pages.Students
 {
-    
+
     public class CreateModel : PageModel
     {
         private readonly SocialHX.Data.SocialHXContext _context;
@@ -52,7 +52,7 @@ namespace SocialHX.Pages.Students
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Referrals/Create", new { id = Student.Email });
         }
     }
 }

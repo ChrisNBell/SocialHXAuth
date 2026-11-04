@@ -11,7 +11,7 @@ using SocialHX.Models;
 
 namespace SocialHX.Pages.Prescribers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly SocialHX.Data.SocialHXContext _context;

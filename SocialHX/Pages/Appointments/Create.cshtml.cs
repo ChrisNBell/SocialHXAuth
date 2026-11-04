@@ -20,9 +20,29 @@ namespace SocialHX.Pages.Appointments
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string? id)
         {
             var prescriber = await FindCurrentPrescriberAsync();
+
+            string pEmail;
+
+            if (prescriber == null)
+            {
+                pEmail = "";
+            }
+            else
+            {
+                pEmail = prescriber.Email;
+            }
+
+            Appointment = new Appointment
+            {
+                StudentID = id!,
+                PrescriberID = pEmail,
+                Description = ""
+            };
+
+
             if (!User.IsInRole("Admin"))
             {
                 if (prescriber == null)
@@ -31,13 +51,22 @@ namespace SocialHX.Pages.Appointments
                 }
                 else
                 {
-                    ViewData["PrescriberID"] = _context.Prescriber
-                       .Where(a => a.Email == prescriber.Email)
-                       .Select(a => new SelectListItem
-                       {
-                           Value = a.Email,
-                           Text = a.Email
-                       }).ToList();
+
+                    // ViewData["PrescriberID"] = _context.Prescriber
+                    // .Where(a => a.Email == prescriber.Email)
+                    // .Select(a => new SelectListItem
+                    // {
+                    // Value = a.Email,
+                    // Text = a.Email
+                    // }).ToList();
+
+                    ViewData["PrescriberID"] = new SelectList(
+                    _context.Prescriber.Where(a => a.Email == prescriber.Email),
+                    "Email", "Email", prescriber.Email);
+
+
+                    ViewData["StudentID"] = new SelectList(
+                    _context.Student.Where(s => s.Email == id), "Email", "Email", id);
                 }
             }
 
