@@ -1,38 +1,43 @@
 @page
 @model SocialHX.Pages.FollowUpsWeek1.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
+@{
+    ViewData["Title"] = "Follow Ups Week 1: Create";
+}
         
-        <h1>Create</h1>
+<h1>Follow Ups Week 1: Create</h1>
         
-    <h4>FollowUpWeek1</h4>
-    <hr />
-    <div class="row">
+<h4>FollowUpWeek1</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="FollowUpWeek1.PrescriptionID" class="control-label"></label>
-                <select asp-for="FollowUpWeek1.PrescriptionID" class ="form-control" asp-items="ViewBag.PrescriptionID" aria-required="true"></select>
-            </div>
+                <select asp-for="FollowUpWeek1.PrescriptionID" class="form-control" asp-items="ViewBag.PrescriptionID"
+                        aria-required="true"></select>
+            </div> 
+            -->
+            <input type="hidden" name="PrescriptionID" value="@ViewBag.PID">
+            
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="FollowUpWeek1.Response" /> @Html.DisplayNameFor(model => model.FollowUpWeek1.Response)
+                    <input class="form-check-input" asp-for="FollowUpWeek1.Response" /> @Html.DisplayNameFor(model =>
+                                                                                                                        model.FollowUpWeek1.Response)
                 </label>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="FollowUpWeek1.StudentReport" class="control-label"></label>
-                <input asp-for="FollowUpWeek1.StudentReport" class="form-control" aria-required="true"/>
+                <input asp-for="FollowUpWeek1.StudentReport" class="form-control" aria-required="true" />
                 <span asp-validation-for="FollowUpWeek1.StudentReport" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="FollowUpWeek1.StudentAdjustments" class="control-label"></label>
-                <input asp-for="FollowUpWeek1.StudentAdjustments" class="form-control" aria-required="true"/>
+                <input asp-for="FollowUpWeek1.StudentAdjustments" class="form-control" aria-required="true" />
                 <span asp-validation-for="FollowUpWeek1.StudentAdjustments" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,5 +52,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

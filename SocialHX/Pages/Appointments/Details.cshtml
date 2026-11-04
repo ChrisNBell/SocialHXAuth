@@ -2,10 +2,10 @@
 @model SocialHX.Pages.Appointments.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Appointments: Details";
 }
 
-<h1>Details</h1>
+<h1>Appointments: Details</h1>
 
 <div>
     <h4>Appointment</h4>
@@ -33,5 +33,6 @@
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Appointment.AppointmentID">Edit</a> |
+    <a asp-page="/Prescriptions/Create" asp-route-appt="@Model.Appointment.AppointmentID">Create Prescription</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

@@ -1,44 +1,44 @@
 @page
 @model SocialHX.Pages.Students.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
+@{
+    ViewData["Title"] = "Students: Create";
+}
         
-        <h1>Create</h1>
+<h1>Students: Create</h1>
         
-    <h4>Student</h4>
-    <hr />
-    <div class="row">
+<h4>Student</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Student.Email" class="control-label"></label>
-                <input asp-for="Student.Email" class="form-control" aria-required="true"/>
+                <input asp-for="Student.Email" class="form-control" aria-required="true" />
                 <span asp-validation-for="Student.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Student.FirstName" class="control-label"></label>
-                <input asp-for="Student.FirstName" class="form-control" aria-required="true"/>
+                <input asp-for="Student.FirstName" class="form-control" aria-required="true" />
                 <span asp-validation-for="Student.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Student.LastName" class="control-label"></label>
-                <input asp-for="Student.LastName" class="form-control" aria-required="true"/>
+                <input asp-for="Student.LastName" class="form-control" aria-required="true" />
                 <span asp-validation-for="Student.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Student.Year" class="control-label"></label>
-                <input asp-for="Student.Year" class="form-control" aria-required="true"/>
+                <input asp-for="Student.Year" class="form-control" aria-required="true" />
                 <span asp-validation-for="Student.Year" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Next" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -49,5 +49,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

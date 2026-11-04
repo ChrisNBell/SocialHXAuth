@@ -21,14 +21,31 @@ namespace SocialHX.Pages.FollowUpsWeek4
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
-            var prescription = _context.Prescription
-                .Include(f => f.Appointment)
-                .ThenInclude(f => f.Student)
-                .ToList();
+            var prescription = User.IsInRole("Admin") ?
+             _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                    .ToList()
+            :
+            _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(p => p.Student)
+                    .Where(p => p.Appointment.Prescriber.Email == User.Identity.Name)
+                    .ToList();
 
-            ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");
+
+
+            ViewData["PID"] = id;
+            ViewData["PrescriptionID"] = prescription
+                .Where(a => a.PrescriptionID == id)
+                .Select(a => new SelectListItem
+                {
+                    Value = a.PrescriptionID.ToString(),
+                    Text = "Prescription #" + a.PrescriptionID.ToString() + " " + a.Appointment.Student.Email
+                }).ToList();
+
             return Page();
         }
 
@@ -36,8 +53,9 @@ namespace SocialHX.Pages.FollowUpsWeek4
         public FollowUpWeek4 FollowUpWeek4 { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? PrescriptionID)
         {
+            FollowUpWeek4.PrescriptionID = (int)PrescriptionID;
             var id = await _context.Prescription.FindAsync(FollowUpWeek4.PrescriptionID);
 
             if (!ModelState.IsValid)

@@ -1,28 +1,28 @@
 @page
 @model SocialHX.Pages.Activities.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
+@{
+    ViewData["Title"] = "Events: Create";
+}
         
-        <h1>Create</h1>
+<h1>Events: Create</h1>
         
-    <h4>Activity</h4>
-    <hr />
-    <div class="row">
+<h4>Activity</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Activity.Name" class="control-label"></label>
-                <input asp-for="Activity.Name" class="form-control" aria-required="true"/>
+                <input asp-for="Activity.Name" class="form-control" aria-required="true" />
                 <span asp-validation-for="Activity.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Activity.Description" class="control-label"></label>
-                <input asp-for="Activity.Description" class="form-control" aria-required="true"/>
+                <input asp-for="Activity.Description" class="form-control" aria-required="true" />
                 <span asp-validation-for="Activity.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,7 +33,7 @@
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Activity.Location" class="control-label"></label>
-                <input asp-for="Activity.Location" class="form-control" aria-required="true"/>
+                <input asp-for="Activity.Location" class="form-control" aria-required="true" />
                 <span asp-validation-for="Activity.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,5 +48,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

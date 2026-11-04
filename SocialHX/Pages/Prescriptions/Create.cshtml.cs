@@ -21,6 +21,13 @@ namespace SocialHX.Pages.Prescriptions
 
         public IActionResult OnGet(int? appt)
         {
+            var appointments = _context.Appointment.AsQueryable();
+            if (!User.IsInRole("Admin"))
+            {
+                var userEmail = User.Identity?.Name;
+                appointments = appointments.Where(a => userEmail != null && a.Prescriber != null && a.Prescriber.Email == userEmail);
+            }
+
             ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
             ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
             ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
@@ -29,16 +36,16 @@ namespace SocialHX.Pages.Prescriptions
 
             if (appt == 0 || appt == null)
             {
-                ViewData["AppointmentID"] = new SelectList(_context.Appointment, "AppointmentID", "AppointmentID");
+                ViewData["AppointmentID"] = new SelectList(appointments, "AppointmentID", "StudentID");
             }
             else
             {
-                ViewData["AppointmentID"] = _context.Appointment
+                ViewData["AppointmentID"] = appointments
                 .Where(a => a.AppointmentID == appt)
                 .Select(a => new SelectListItem
                 {
                     Value = a.AppointmentID.ToString(),
-                    Text = a.Student.Email + " (Appt " + a.AppointmentID + ")"
+                    Text = a.Student == null ? "Unknown student" : a.Student.Email
                 }).ToList();
             }
             return Page();

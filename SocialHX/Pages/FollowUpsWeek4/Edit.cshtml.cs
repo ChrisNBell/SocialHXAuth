@@ -40,14 +40,17 @@ namespace SocialHX.Pages.FollowUpsWeek4
                 return NotFound();
             }
             FollowUpWeek4 = followupweek4;
-            ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");
+            ViewData["PID"] = FollowUpWeek4.PrescriptionID;
+            // ViewData["PrescriptionID"] = new SelectList(_context.Prescription, "PrescriptionID", "Appointment.Student.Email");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? PrescriptionID)
         {
+            FollowUpWeek4.PrescriptionID = (int)PrescriptionID;
+
             if (!ModelState.IsValid)
             {
                 return Page();

@@ -2,10 +2,10 @@
 @model SocialHX.Pages.Appointments.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Appointments: Edit";
 }
 
-<h1>Edit</h1>
+<h1>Appointments: Edit</h1>
 
 <h4>Appointment</h4>
 <hr />
@@ -15,21 +15,23 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Appointment.AppointmentID" />
             <div class="form-group">
-<span class="text-danger">*</span>
+                <span class="text-danger">*</span>
                 <label asp-for="Appointment.StudentID" class="control-label"></label>
-                <select asp-for="Appointment.StudentID" class="form-control" asp-items="ViewBag.StudentID" aria-required="true"></select>
+                <select asp-for="Appointment.StudentID" class="form-control" asp-items="ViewBag.StudentID"
+                        aria-required="true"></select>
                 <span asp-validation-for="Appointment.StudentID" class="text-danger"></span>
             </div>
             <div class="form-group">
-<span class="text-danger">*</span>
+                <span class="text-danger">*</span>
                 <label asp-for="Appointment.PrescriberID" class="control-label"></label>
-                <select asp-for="Appointment.PrescriberID" class="form-control" asp-items="ViewBag.PrescriberID" aria-required="true"></select>
+                <select asp-for="Appointment.PrescriberID" class="form-control" asp-items="ViewBag.PrescriberID"
+                        aria-required="true"></select>
                 <span asp-validation-for="Appointment.PrescriberID" class="text-danger"></span>
             </div>
             <div class="form-group">
-<span class="text-danger">*</span>
+                <span class="text-danger">*</span>
                 <label asp-for="Appointment.Description" class="control-label"></label>
-                <input asp-for="Appointment.Description" class="form-control" aria-required="true"/>
+                <input asp-for="Appointment.Description" class="form-control" aria-required="true" />
                 <span asp-validation-for="Appointment.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,5 +46,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

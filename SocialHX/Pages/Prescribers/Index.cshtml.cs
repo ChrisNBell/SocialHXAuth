@@ -21,7 +21,7 @@ namespace SocialHX.Pages.Prescribers
             _context = context;
         }
 
-        public IList<Prescriber> Prescriber { get;set; } = default!;
+        public IList<Prescriber> Prescriber { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

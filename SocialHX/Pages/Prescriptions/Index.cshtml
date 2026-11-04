@@ -53,7 +53,9 @@
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.PrescriptionID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.PrescriptionID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.PrescriptionID">Delete</a>
+                    <a asp-page="./Delete" asp-route-id="@item.PrescriptionID">Delete</a> |
+                    <a asp-page="/FollowUpsWeek1/Create" asp-route-id="@item.PrescriptionID">Follow Up: Week 1</a> |
+                    <a asp-page="/FollowUpsWeek4/Create" asp-route-id="@item.PrescriptionID">Follow Up: Week 4</a>
                 </td>
             </tr>
         }

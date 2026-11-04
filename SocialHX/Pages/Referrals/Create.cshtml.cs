@@ -19,9 +19,10 @@ namespace SocialHX.Pages.Referrals
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string? id)
         {
-            ViewData["StudentID"] = new SelectList(_context.Student, "Email", "Email");
+            ViewData["StudentID"] = new SelectList(
+                    _context.Student.Where(s => s.Email == id), "Email", "Email", id);
             ViewData["SubmitterList"] = new SelectList(Enum.GetValues(typeof(Submitter)));
             ViewData["ConcernsList"] = new SelectList(Enum.GetValues(typeof(Concerns)));
             return Page();

@@ -29,7 +29,10 @@ namespace SocialHX.Pages.Appointments
                 return NotFound();
             }
 
-            var appointment = await _context.Appointment.FirstOrDefaultAsync(m => m.AppointmentID == id);
+            var appointment = await _context.Appointment
+                .Include(p => p.Student)
+                 .Include(p => p.Prescriber)
+                .FirstOrDefaultAsync(m => m.AppointmentID == id);
 
             if (appointment is not null)
             {

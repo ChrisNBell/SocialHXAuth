@@ -44,7 +44,13 @@ namespace SocialHX.Pages.Prescriptions
                 return NotFound();
             }
             Prescription = prescription;
-            ViewData["AppointmentID"] = new SelectList(_context.Appointment, "AppointmentID", "StudentID");
+            var appointments = _context.Appointment.AsQueryable();
+            if (!User.IsInRole("Admin"))
+            {
+                var userEmail = User.Identity?.Name;
+                appointments = appointments.Where(a => userEmail != null && a.Prescriber != null && a.Prescriber.Email == userEmail);
+            }
+            ViewData["AppointmentID"] = new SelectList(appointments, "AppointmentID", "StudentID");
             ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
             ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
             ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
