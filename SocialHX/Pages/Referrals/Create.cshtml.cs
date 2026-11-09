@@ -42,7 +42,7 @@ namespace SocialHX.Pages.Referrals
             _context.Referral.Add(Referral);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/ThankYou/thankyoureferral");
         }
     }
 }
