@@ -20,12 +20,15 @@
                         aria-required="true"></select>
             </div> 
             -->
+
+
+
             <input type="hidden" name="PrescriptionID" value="@ViewBag.PID">
             
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="FollowUpWeek1.Response" /> @Html.DisplayNameFor(model =>
-                                                                                                                                                                model.FollowUpWeek1.Response)
+                                                                                                                                                                                    model.FollowUpWeek1.Response)
                 </label>
             </div>
             <div class="form-group">
