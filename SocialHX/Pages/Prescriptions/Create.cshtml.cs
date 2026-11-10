@@ -19,42 +19,19 @@ namespace SocialHX.Pages.Prescriptions
             _context = context;
         }
 
+               // student this prescription is for looked up through the appointment
+        public Student? Student { get; set; }
+
         public IActionResult OnGet(int? appt)
         {
-            var appointments = _context.Appointment.AsQueryable();
-            if (!User.IsInRole("Admin"))
+            //  no appointment picker on this page so without one it cant be submitted
+            if (appt == null || appt == 0)
             {
-                var userEmail = User.Identity?.Name;
-                appointments = appointments.Where(a => userEmail != null && a.Prescriber != null && a.Prescriber.Email == userEmail);
+                return RedirectToPage("/Appointments/Index");
             }
 
-            ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
-            ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status)));
-
-            if (appt == 0 || appt == null)
-            {
-                ViewData["AppointmentID"] = new SelectList(appointments, "AppointmentID", "StudentID");
-            }
-            else
-            {
-                ViewData["AID"] = appt;
-                /* ViewData["AppointmentID"] = appointments
-                .Where(a => a.AppointmentID == appt)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.AppointmentID.ToString(),
-                    Text = a.Student == null ? "Unknown student" : a.Student.Email
-                }).ToList(); */
-
-            }
+            LoadPageData(appt.Value);
             return Page();
-
-
-
-
         }
 
         [BindProperty]
@@ -63,12 +40,18 @@ namespace SocialHX.Pages.Prescriptions
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int? appt)
         {
-            Prescription.AppointmentID = (int)appt;
+            if (appt == null || appt == 0)
+            {
+                return RedirectToPage("/Appointments/Index");
+            }
+
+            Prescription.AppointmentID = appt.Value;
             ModelState.Clear();
             TryValidateModel(Prescription);
 
             if (!ModelState.IsValid)
             {
+                LoadPageData(appt.Value);
                 return Page();
             }
 
@@ -76,6 +59,21 @@ namespace SocialHX.Pages.Prescriptions
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        private void LoadPageData(int appt)
+        {
+            ViewData["Event1ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["Event2ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["Event3ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["Event4ID"] = new SelectList(_context.Activity, "ActivityID", "Name");
+            ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status)));
+            ViewData["AID"] = appt;
+
+            Student = _context.Appointment
+                .Where(a => a.AppointmentID == appt)
+                .Select(a => a.Student)
+                .FirstOrDefault();
         }
     }
 }
