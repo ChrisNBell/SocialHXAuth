@@ -24,7 +24,20 @@
 
 
             <input type="hidden" name="PrescriptionID" value="@ViewBag.PID">
-            
+@if (Model.Prescription != null)
+{
+    var student = Model.Prescription.Appointment?.Student;
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title mb-1">Prescription #@Model.Prescription.PrescriptionID</h5>
+            @if (student != null)
+            {
+                <p class="card-text mb-0">@student.FirstName @student.LastName</p>
+                <p class="card-text text-muted mb-0">@student.Email</p>
+            }
+        </div>
+    </div>
+}
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="FollowUpWeek1.Response" /> @Html.DisplayNameFor(model =>
