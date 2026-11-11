@@ -20,29 +20,19 @@ namespace SocialHX.Pages.FollowUpsWeek1
             _context = context;
         }
 
-        public IActionResult OnGet(int? id)
-        {
+                // prescription this follow-up is for  with its student 
+        public Prescription? Prescription { get; set; }
 
-            var prescription = User.IsInRole("Admin") ?
-             _context.Prescription
-                .Include(p => p.Appointment)
-                    .ThenInclude(p => p.Student)
-                    .ToList()
-            :
-            _context.Prescription
-                .Include(p => p.Appointment)
-                    .ThenInclude(p => p.Student)
-                    .Where(p => p.Appointment.Prescriber.Email == User.Identity.Name)
-                    .ToList();
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            Prescription = await LoadPrescriptionAsync(id);
+
+            if (Prescription == null)
+            {
+                return RedirectToPage("/Prescriptions/Index");
+            }
 
             ViewData["PID"] = id;
-            ViewData["PrescriptionID"] = prescription
-                .Where(a => a.PrescriptionID == id)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.PrescriptionID.ToString(),
-                    Text = "Prescription #" + a.PrescriptionID.ToString() + " " + a.Appointment.Student.Email
-                }).ToList();
             return Page();
         }
 
@@ -52,12 +42,18 @@ namespace SocialHX.Pages.FollowUpsWeek1
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int? PrescriptionID)
         {
+            if (PrescriptionID == null)
+            {
+                return RedirectToPage("/Prescriptions/Index");
+            }
 
-            Console.WriteLine(PrescriptionID);
-            FollowUpWeek1.PrescriptionID = (int)PrescriptionID;
+            FollowUpWeek1.PrescriptionID = PrescriptionID.Value;
 
             if (!ModelState.IsValid)
             {
+                // reload the card so it doesn't disappear on validation error
+                Prescription = await LoadPrescriptionAsync(PrescriptionID);
+                ViewData["PID"] = PrescriptionID;
                 return Page();
             }
 
@@ -65,6 +61,25 @@ namespace SocialHX.Pages.FollowUpsWeek1
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Prescriptions/Details", new { id = FollowUpWeek1.PrescriptionID });
+        }
+
+        // sdmins see any prescription. prescribers only their own
+        private async Task<Prescription?> LoadPrescriptionAsync(int? id)
+        {
+            if (id == null) return null;
+
+            var query = _context.Prescription
+                .Include(p => p.Appointment)
+                    .ThenInclude(a => a!.Student)
+                .Where(p => p.PrescriptionID == id);
+
+            if (!User.IsInRole("Admin"))
+            {
+                var userEmail = User.Identity?.Name;
+                query = query.Where(p => p.Appointment!.Prescriber!.Email == userEmail);
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
     }
 }
