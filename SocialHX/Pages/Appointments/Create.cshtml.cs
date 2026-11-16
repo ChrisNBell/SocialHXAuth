@@ -20,8 +20,19 @@ namespace SocialHX.Pages.Appointments
             _context = context;
         }
 
+        // student this appointment is for
+        public Student? Student { get; set; }
+
         public async Task<IActionResult> OnGetAsync(string? id)
         {
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.Email == id);
+
+            // if no valid student = can't make an appointment. send back to referrals.
+            if (Student == null)
+            {
+                return RedirectToPage("/Referrals/Index");
+            }
+
             ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "Email", "Email");
             ViewData["PID"] = id;
             return Page();
@@ -33,12 +44,15 @@ namespace SocialHX.Pages.Appointments
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(string? StudentID)
         {
-            Console.WriteLine(StudentID);
-            Appointment.StudentID = (string)StudentID;
+            Appointment.StudentID = StudentID ?? "";
             ModelState.Clear();
             TryValidateModel(Appointment);
             if (!ModelState.IsValid)
             {
+                // reload what page needs so it doesn't break on a validation error
+                Student = await _context.Student.FirstOrDefaultAsync(s => s.Email == StudentID);
+                ViewData["PrescriberID"] = new SelectList(_context.Prescriber, "Email", "Email");
+                ViewData["PID"] = StudentID;
                 return Page();
             }
 
