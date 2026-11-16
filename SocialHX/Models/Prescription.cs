@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.VisualBasic;
 
 namespace SocialHX.Models;
 
@@ -64,6 +65,7 @@ public class Prescription
     // on create and edit so the dates are never typed by hand.
     public void SetFollowUpDates()
     {
+        DateTime = DateAndTime.Now;
         Week1DateTime = DateTime.AddDays(7);
         Week4DateTime = DateTime.AddDays(28);
     }
