@@ -10,33 +10,39 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form method="get" class="btn-group mb-3" role="group" aria-label="Filter referrals by appointment">
+    <button type="submit" name="appointmentFilter" value="without"
+            class="btn @(Model.AppointmentFilter == "without" ? "btn-primary" : "btn-outline-primary")"
+            aria-pressed="@(Model.AppointmentFilter == "without")">Without appointments</button>
+    <button type="submit" name="appointmentFilter" value="with"
+            class="btn @(Model.AppointmentFilter == "with" ? "btn-primary" : "btn-outline-primary")"
+            aria-pressed="@(Model.AppointmentFilter == "with")">With appointments</button>
+    <button type="submit" name="appointmentFilter" value="all"
+            class="btn @(Model.AppointmentFilter == "all" ? "btn-primary" : "btn-outline-primary")"
+            aria-pressed="@(Model.AppointmentFilter == "all")">All</button>
+</form>
+@if (Model.Referral.Count == 0)
+{
+    <p>@(Model.AppointmentFilter switch
+    {
+        "all" => "No referrals found.",
+        "with" => "No referrals with appointments found.",
+        _ => "No referrals without appointments found."
+    })</p>
+}
+else
+{
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].Submitter)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].SubmitterFirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].SubmitterLastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].SubmitterEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].StudentAware)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Referral[0].Concerns)
-            </th>
+            <th>Student</th>
+            <th>Submitter</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Student aware</th>
+            <th>Description</th>
+            <th>Concerns</th>
             <th></th>
         </tr>
     </thead>
@@ -45,7 +51,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Student.Email)
+                    @item.Student?.Email
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Submitter)
@@ -78,3 +84,4 @@
         }
     </tbody>
 </table>
+}

@@ -20,11 +20,28 @@ namespace SocialHX.Pages.Referrals
         }
 
         public IList<Referral> Referral { get;set; } = default!;
+        public string AppointmentFilter { get; private set; } = "without";
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string? appointmentFilter)
         {
-            Referral = await _context.Referral
-                .Include(r => r.Student).ToListAsync();
+            AppointmentFilter = appointmentFilter switch
+            {
+                "all" => "all",
+                "with" => "with",
+                _ => "without"
+            };
+
+            var referrals = _context.Referral.AsQueryable();
+            if (AppointmentFilter == "with")
+            {
+                referrals = referrals.Where(r => _context.Appointment.Any(a => a.StudentID == r.StudentID));
+            }
+            else if (AppointmentFilter == "without")
+            {
+                referrals = referrals.Where(r => !_context.Appointment.Any(a => a.StudentID == r.StudentID));
+            }
+
+            Referral = await referrals.Include(r => r.Student).ToListAsync();
         }
     }
 }
