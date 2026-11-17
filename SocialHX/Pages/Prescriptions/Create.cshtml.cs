@@ -46,6 +46,7 @@ namespace SocialHX.Pages.Prescriptions
             }
 
             Prescription.AppointmentID = appt.Value;
+            Prescription.SetFollowUpDates();
             ModelState.Clear();
             TryValidateModel(Prescription);
 

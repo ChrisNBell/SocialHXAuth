@@ -104,14 +104,13 @@
                 <span asp-validation-for="Prescription.Event4OtherPerson" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Prescription.Week1DateTime" class="control-label"></label>
-                <input asp-for="Prescription.Week1DateTime" class="form-control" />
-                <span asp-validation-for="Prescription.Week1DateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prescription.Week4DateTime" class="control-label"></label>
-                <input asp-for="Prescription.Week4DateTime" class="form-control" />
-                <span asp-validation-for="Prescription.Week4DateTime" class="text-danger"></span>
+                <label class="control-label">Follow-up dates</label>
+                <p class="form-control-plaintext mb-0">
+                    Week 1: @Model.Prescription.Week1DateTime.ToString("d")<br />
+                    Week 4: @Model.Prescription.Week4DateTime.ToString("d")
+                </p>
+                <p class="form-control-plaintext mb-2"> Week 1: </p>
+                <small class="text-muted">Recalculated from the prescription date when you save.</small>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
