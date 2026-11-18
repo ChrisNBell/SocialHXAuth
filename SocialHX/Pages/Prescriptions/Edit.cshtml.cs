@@ -63,6 +63,9 @@ namespace SocialHX.Pages.Prescriptions
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
+            Prescription.SetFollowUpDates();
+
             if (!ModelState.IsValid)
             {
                 return Page();

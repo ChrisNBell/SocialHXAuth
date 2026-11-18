@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.VisualBasic;
 
 namespace SocialHX.Models;
 
@@ -60,6 +61,14 @@ public class Prescription
     public required string Event4OtherPerson { get; set; }
     public DateTime Week1DateTime { get; set; }
     public DateTime Week4DateTime { get; set; }
+    // follow-ups happen 1 and 4 weeks after the prescription date.
+    // on create and edit so the dates are never typed by hand.
+    public void SetFollowUpDates()
+    {
+        DateTime = DateAndTime.Now;
+        Week1DateTime = DateTime.AddDays(7);
+        Week4DateTime = DateTime.AddDays(28);
+    }
     [Required]
     public required string PrescriptionNotes { get; set; }
 

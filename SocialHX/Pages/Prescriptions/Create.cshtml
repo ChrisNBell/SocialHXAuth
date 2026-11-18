@@ -1,4 +1,5 @@
 @page
+@using Microsoft.VisualBasic
 @model SocialHX.Pages.Prescriptions.CreateModel
 
 @{
@@ -23,10 +24,9 @@
     </div>
 }
             <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="Prescription.DateTime" class="control-label"></label>
-                <input asp-for="Prescription.DateTime" class="form-control" aria-required="true" />
-                <span asp-validation-for="Prescription.DateTime" class="text-danger"></span>
+                <p class="form-control-plaintext mb-0">
+                    Date: @DateTime.Now.ToString("d")
+                </p>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
@@ -100,16 +100,10 @@
                 <input asp-for="Prescription.Event4OtherPerson" class="form-control" aria-required="true" />
                 <span asp-validation-for="Prescription.Event4OtherPerson" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Prescription.Week1DateTime" class="control-label"></label>
-                <input asp-for="Prescription.Week1DateTime" class="form-control" />
-                <span asp-validation-for="Prescription.Week1DateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prescription.Week4DateTime" class="control-label"></label>
-                <input asp-for="Prescription.Week4DateTime" class="form-control" />
-                <span asp-validation-for="Prescription.Week4DateTime" class="text-danger"></span>
-            </div>
+            <p class="text-muted small">
+                Week 1 and Week 4 follow-up dates are set automatically
+                (7 and 28 days after the prescription date).
+            </p>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Prescription.PrescriptionNotes" class="control-label"></label>
