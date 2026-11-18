@@ -59,7 +59,7 @@ namespace SocialHX.Pages.Appointments
             _context.Appointment.Add(Appointment);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/ThankYou/thankyouappointment");
         }
 
         private Task<Prescriber?> FindCurrentPrescriberAsync()

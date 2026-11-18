@@ -19,20 +19,39 @@ namespace SocialHX.Pages.Appointments
             _context = context;
         }
 
-        public IList<Appointment> Appointment { get;set; } = default!;
+        public IList<Appointment> Appointment { get; set; } = default!;
+        public string PrescriptionFilter { get; private set; } = "without";
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string? prescriptionFilter)
         {
+
+            PrescriptionFilter = prescriptionFilter switch
+            {
+                "all" => "all",
+                "with" => "with",
+                _ => "without"
+            };
+
+            var appointments = _context.Appointment.AsQueryable();
+            if (PrescriptionFilter == "with")
+            {
+                appointments = appointments.Where(r => _context.Prescription.Any(a => a.AppointmentID == r.AppointmentID));
+            }
+            else if (PrescriptionFilter == "without")
+            {
+                appointments = appointments.Where(r => !_context.Prescription.Any(a => a.AppointmentID == r.AppointmentID));
+            }
+
             Appointment = User.IsInRole("Admin") ?
-            await _context.Appointment
-                .Include(a => a.Prescriber)
-                .Include(a => a.Student).ToListAsync()
+            await appointments
+            .Include(a => a.Prescriber)
+            .Include(a => a.Student).ToListAsync()
             :
-            await _context.Appointment
-                .Include(a => a.Prescriber)
-                .Include(a => a.Student)
-                .Where(a => a.Prescriber.Email == User.Identity.Name)
-                .ToListAsync();
+            await appointments
+            .Include(a => a.Prescriber)
+            .Include(a => a.Student)
+            .Where(a => a.Prescriber.Email == User.Identity.Name)
+            .ToListAsync();
         }
     }
 }

@@ -10,41 +10,58 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].Prescriber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Appointment)
+<form method="get" class="btn-group mb-3" role="group" aria-label="Filter referrals by appointment">
+    <button type="submit" name="prescriptionFilter" value="without"
+            class="btn @(Model.PrescriptionFilter == "without" ? "btn-primary" : "btn-outline-primary")"
+            aria-pressed="@(Model.PrescriptionFilter == "without")">Without prescriptions</button>
+    <button type="submit" name="prescriptionFilter" value="with"
+            class="btn @(Model.PrescriptionFilter == "with" ? "btn-primary" : "btn-outline-primary")"
+            aria-pressed="@(Model.PrescriptionFilter == "with")">With prescriptions</button>
+    <button type="submit" name="prescriptionFilter" value="all"
+            class="btn @(Model.PrescriptionFilter == "all" ? "btn-primary" : "btn-outline-primary")"
+            aria-pressed="@(Model.PrescriptionFilter == "all")">All</button>
+</form>
+@if (Model.Appointment.Count == 0)
+{
+    <p>@(Model.PrescriptionFilter switch
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Student.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Prescriber.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.AppointmentID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.AppointmentID">Details</a> |
-                    <a asp-page="/Prescriptions/Create" asp-route-appt="@item.AppointmentID">Create Prescription</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.AppointmentID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            "all" => "No referrals found.",
+            "with" => "No referrals with appointments found.",
+            _ => "No referrals without appointments found."
+        })</p>
+    }
+else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Prescriber</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Appointment)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prescriber.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.AppointmentID">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.AppointmentID">Details</a> |
+                            <a asp-page="/Prescriptions/Create" asp-route-appt="@item.AppointmentID">Create Prescription</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.AppointmentID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }

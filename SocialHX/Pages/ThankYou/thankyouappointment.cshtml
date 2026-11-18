@@ -1,0 +1,15 @@
+@page
+@model ThankYouReferral
+@{
+    ViewData["Title"] = "Thank You Admin";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Thank you for submitting an appointment!</h1>
+    <p>
+        Your information has been documented.
+    </p>
+    <a asp-page="/Referrals/Index">Referral Page</a> |
+    <a asp-page="/Appointments/Index">Appointments Page</a>
+</div>
